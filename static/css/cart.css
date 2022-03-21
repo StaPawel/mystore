@@ -1,0 +1,19 @@
+.cart-detail {
+
+ width: 50%;
+ margin: 0 auto;
+}
+
+.sum {
+    border-top: 1px solid;
+    margin-top:10px;
+}
+
+.cart-title, .cart-price, .cart-delete-button {
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.cart-delete-button {
+    float: right;
+}

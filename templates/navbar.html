@@ -1,0 +1,16 @@
+
+<div class="navbar">
+    <div class="cart">
+        <a href="/cart">Cart ({{ request.session.cartlen }})</a>
+    </div>
+
+    <div class="nav-user">
+        Hello {{ user.username }}!
+        <br>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+</div>

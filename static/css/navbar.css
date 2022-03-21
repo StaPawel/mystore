@@ -1,0 +1,18 @@
+.navbar {
+    border: 1px solid;
+    margin-bottom: 30px;
+    height: 100px;
+
+}
+.cart {
+
+    margin-left: 80%;
+    display:inline;
+
+}
+.nav-user {
+    float: right;
+    display:inline;
+
+}
+

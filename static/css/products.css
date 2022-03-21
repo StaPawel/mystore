@@ -1,0 +1,17 @@
+.product{
+    border: 1px solid;
+    height: 350px;
+    width: 170px;
+    display: inline-block;
+    margin: 10px;
+}
+.products-list{
+	margin: auto;
+	width: 100%;
+	display: flex;
+  	justify-content: center;
+}
+
+.product-image {
+	width: 100%;
+}

@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="cart-detail">
+    {% for object in object_list %}
+    <div>
+        <div class="cart-title">{{ object.title }}</div>
+        <div class="cart-price">{{ object.price }}</div>
+        <div class="cart-delete-button">
+            <a href="/cart/delete" onclick="getIdProduct({{ object.id }})">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+
+<div class="sum">Sum: {{ cart_sum.sum }}</div>
+</div>
+{% endblock %}
