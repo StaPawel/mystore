@@ -1,6 +1,5 @@
 from django.urls import path
 
-from cart.views import cart_popup_view
 from .views import (
     ProductsListView,
     ProductsDetailView,

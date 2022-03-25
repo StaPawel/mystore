@@ -18,44 +18,47 @@ from .models import Cart
 
 cartProductsId = []
 
+def getCart(request):
+    cart = Cart.objects.get(customer_id=request.user.id)
+    return cart
+
 def cart_detail_view(request):
-    # rozwiazanie z pusta lista ---------------------
-    # productId = int(request.COOKIES['productId'])
-    # objList = []
-    #
-    # if not productId in cartProductsId:
-    #     cartProductsId.append(productId)
-    #
-    # for product in cartProductsId:
-    #     objList.append(Products.objects.get(id=product))
-    # ---------------------
 
-    # cart = Cart.objects.all().filter(customer=request.user.id) #typ -> QuerySet
-    cart = Cart.objects.get(customer_id=request.user.id) # typ -> models.Cart
-    # cart = Cart.objects.all()
-    productCart = list(cart.products.all())
-    request.session['cartlen'] = len(productCart)
+    isCartEmpty = False
+    cart = Cart.objects
+    productCart = []
 
-    # print(Cart.objects.get(id=1))
-    # cart = Cart.objects.get(id=1)
-    # print(Cart.objects.all())
-    # print(cart.products.all())
-    # print(request.user.id)
-
+    if Cart.objects.filter(customer_id=request.user.id):
+        isCartEmpty = True
+        cart = getCart(request)
+        productCart = list(cart.products.all())
+        request.session['cartlen'] = len(productCart)
 
     context = {
+        "is_cart_empty": isCartEmpty,
         "object_list": productCart,
         "cart_sum": cart
     }
     return render(request, "cart_detail.html", context)
 
-def cart_popup_view(request):
+def cart_add(request):
     productId = int(request.COOKIES['productId'])
-    cart = Cart.objects.get(customer_id=request.user.id)
     product = Products.objects.get(id=productId)
-    cart.products.add(product)
-    cart.sum = cart.sum + product.price
-    cart.save()
+
+    # cart = Cart.objects.get(customer_id=request.user.id)
+    cart = Cart()
+
+    if Cart.objects.filter(customer_id=request.user.id):
+        cart = Cart.objects.get(customer_id=request.user.id)
+        cart.products.add(product)
+        cart.sum = cart.sum + product.price
+        cart.save()
+    else:
+        cart = Cart(sum=product.price, customer_id=request.user.id)
+        cart.save()
+        cart.products.add(product)
+        cart.save()
+
     return HttpResponseRedirect('/products/'+str(productId))
 
 def cart_delete(request):
@@ -64,13 +67,6 @@ def cart_delete(request):
     # cart.products.add(Products.objects.get(id=productId))
     cart.products.remove(Products.objects.get(id=productId))
     return HttpResponseRedirect('/cart')
-
-# ponizej class view. Zamienic cart_detail_view na class??
-# class CartBasket(ListView):
-#     template_name = 'cart_detail.html'
-#     def get_queryset(self):
-#         queryset = Cart.objects.all().filter(customer=self.request.user.id)
-#         print("in class view")
 
 
 
