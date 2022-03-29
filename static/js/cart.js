@@ -24,5 +24,11 @@
 			// document.cookie = "product=" + item + "; path=/";
 			document.cookie = "productId=" + item + "; path=/";
 		}
+
+		function getQuantity(x) {
+//		var x = document.getElementById("quantity").value;
+            console.log('get quantity: ' + x)
+
+		}
         
 //        https://gist.github.com/jansanchez/6694824

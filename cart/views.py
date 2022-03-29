@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .forms import Cart
+# from .forms import Cart
 from django.http import HttpResponseRedirect
-
+from products.forms import ProductForm
 
 from django.views.generic import (
     CreateView,
@@ -28,6 +28,10 @@ def cart_detail_view(request):
     cart = Cart.objects
     productCart = []
 
+    form = ProductForm()
+    if form.is_valid():
+            form.save()
+
     if Cart.objects.filter(customer_id=request.user.id):
         isCartEmpty = True
         cart = getCart(request)
@@ -37,7 +41,8 @@ def cart_detail_view(request):
     context = {
         "is_cart_empty": isCartEmpty,
         "object_list": productCart,
-        "cart_sum": cart
+        "cart_sum": cart,
+        "form": form
     }
     return render(request, "cart_detail.html", context)
 

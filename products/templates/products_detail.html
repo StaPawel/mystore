@@ -1,14 +1,14 @@
 {% extends 'index.html' %}
 {% load static %}
 
-    {% block content %}
+{% block content %}
 <div class="product-container">
 
     <div class="left-side">
         {% if products.image %}
-            <img class="image" src="{{ products.image.url }}">
+        <img class="image" src="{{ products.image.url }}">
         {% else %}
-            <img src="{% static 'images/sample.png' %}">
+        <img src="{% static 'images/sample.png' %}">
         {% endif %}
     </div>
 
@@ -16,37 +16,32 @@
         <div class="title">{{ products.title }}</div>
         <div class="price">{{ products.price }}</div>
 
-        <form action="/cart/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
+<!--        <form action="/cart/" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            {{ form.as_p }}-->
+<!--            <input type="submit" value="Submit">-->
+<!--        </form>-->
 
-            <div>
+        <div>
             {% if user.is_authenticated %}
-                <a href="/cart/add" id="add-btn" onclick="getIdProduct({{ products.id }})">Add to cart</a>
+            <a href="/cart/add" id="add-btn" onclick="getIdProduct({{ products.id }})">Add to cart</a>
             {% else %}
-                <a href="{% url 'login' %}">Add to cart</a>
+            <a href="{% url 'login' %}">Add to cart</a>
             {% endif %}
         </div>
     </div>
-        <div class="description">{{ products.description }}</div>
+    <div class="description">{{ products.description }}</div>
 
 
+    <!--        {% include 'add_to_cart_button.html' %}-->
 
 
+    <!--<form action="" method="post">-->
+    <!--        {% csrf_token %}-->
+    <!--        <input type="submit" name="add" value="Add from form"/>-->
+    <!--    </form>-->
 
-
-<!--        {% include 'add_to_cart_button.html' %}-->
-
-
-
-<!--<form action="" method="post">-->
-<!--        {% csrf_token %}-->
-<!--        <input type="submit" name="add" value="Add from form"/>-->
-<!--    </form>-->
-
-<!--<a href="/cart/a">Add button</a>-->
+    <!--<a href="/cart/a">Add button</a>-->
 </div>
 {% endblock %}
 
