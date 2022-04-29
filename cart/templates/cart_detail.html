@@ -16,15 +16,12 @@
         <!--            {{ form.as_p }}-->
         <!--            <input type="submit" value="Submit">-->
         <!--        </form>-->
-        <select id="quantity" onchange="getQuantity(value)">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
+
+        <input type="number" id="{{ object.id }}" onchange="getQuantity(value, {{ object.id }})" min="00" max="10"
+        value="{{ quantity }}">
     </div>
     {% endfor %}
-    <div class="sum">Sum: {{ cart_sum.sum }}</div>
+    <div class="sum">Sum: {{ cart_sum }}</div>
 </div>
 {% else %}
 <p>CART IS EMPTY</p>

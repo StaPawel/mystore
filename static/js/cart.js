@@ -25,9 +25,22 @@
 			document.cookie = "productId=" + item + "; path=/";
 		}
 
-		function getQuantity(x) {
+		function getQuantity(quantity, id) {
 //		var x = document.getElementById("quantity").value;
-            console.log('get quantity: ' + x)
+            console.log('get quantity: ' + quantity)
+            console.log('get id: ' + id)
+
+            document.cookie = "quantityProductId=" + id + "; path=/";
+            document.cookie = "quantity=" + quantity + "; path=/";
+
+
+//            const productQuantity = {
+//            quantity: x,
+//            productId: y,
+//            }
+//
+//        window.localStorage.setItem('productQuantity', JSON.stringify(productQuantity));
+
 
 		}
         

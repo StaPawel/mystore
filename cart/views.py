@@ -32,17 +32,38 @@ def cart_detail_view(request):
     if form.is_valid():
             form.save()
 
+    quantityProductId = int(request.COOKIES['quantityProductId'])
+    quantity = int(request.COOKIES['quantity'])
+
+    print(quantityProductId)
+    print(quantity)
+
+    # Zastanwic sie czy nie lepiej bedzie jesli ponizsze rozwiazanie bedzie robione
+    # w javascript (cart.js) zamiast w django. W samym django tylko pobranie quantity
+    # 1. pobierz id produktu z cookie
+    # 2. pobierz wszystkie id produktow z koszyka i porownaj je z id z punktu nr. 1
+    # 3. jesli quantityProductId == id produktu to
+    #       quantity produktu == quantity z cookie
+    # 4. przypisz quantity do odpowiedniego pola
+
     if Cart.objects.filter(customer_id=request.user.id):
         isCartEmpty = True
         cart = getCart(request)
         productCart = list(cart.products.all())
         request.session['cartlen'] = len(productCart)
 
+        print(productCart)
+        for product in productCart:
+            print(product.quantity)
+
+        sum = cart.sum * quantity
+
     context = {
         "is_cart_empty": isCartEmpty,
         "object_list": productCart,
-        "cart_sum": cart,
-        "form": form
+        "cart_sum": sum,
+        "form": form,
+        "quantity": quantity
     }
     return render(request, "cart_detail.html", context)
 
