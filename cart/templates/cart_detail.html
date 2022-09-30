@@ -11,14 +11,13 @@
         <div class="cart-delete-button">
             <a href="/cart/delete" onclick="getIdProduct({{ object.id }})">Delete</a>
         </div>
-        <!--        <form action="/cart/" method="post">-->
-        <!--            {% csrf_token %}-->
-        <!--            {{ form.as_p }}-->
-        <!--            <input type="submit" value="Submit">-->
-        <!--        </form>-->
 
-        <input type="number" id="{{ object.id }}" onchange="getQuantity(value, {{ object.id }})" min="00" max="10"
-        value="{{ quantity }}">
+        <form action="/cart/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="OK" name="{{ object.id }}">
+        </form>
+
     </div>
     {% endfor %}
     <div class="sum">Sum: {{ cart_sum }}</div>
